@@ -1,0 +1,41 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Slay the Spire"
+config/description="A Slay the Spire clone tutorial project in Godot 4."
+run/main_scene="uid://dc1vi16fxtx81"
+config/features=PackedStringArray("4.6", "GL Compatibility")
+config/icon="uid://1c7m1x2w2ym8"
+
+[display]
+
+window/size/viewport_width=256
+window/size/viewport_height=144
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="viewport"
+
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
