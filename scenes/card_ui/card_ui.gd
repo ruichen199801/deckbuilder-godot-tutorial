@@ -12,6 +12,8 @@ extends Control
 # In this case, it is needed so that it can move beyond container's fixed size.
 signal reparent_requested(which_card_ui: CardUI)
 
+@export var card: Card
+
 # CardUI
 #  - Color
 #  - State
@@ -23,6 +25,11 @@ signal reparent_requested(which_card_ui: CardUI)
 @onready var card_state_machine: CardStateMachine = $CardStateMachine
 @onready var targets: Array[Node] = []
 
+# Need access to parent for the aiming
+var parent: Control
+# Used to animate changes over time, needed for the aiming animation
+var tween: Tween
+
 
 # Wirp up the state machine by calling init().
 func _ready() -> void:
@@ -32,6 +39,11 @@ func _ready() -> void:
 # _ready and _input callbacks are inherited from Node, no need to connect.
 func _input(event: InputEvent) -> void:
 	card_state_machine.on_input(event)
+	
+	
+func animate_to_position(new_position: Vector2, duration: float) -> void:
+	tween = create_tween().set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "global_position", new_position, duration)
 	
 	
 # Custom callbacks such as _on_gui_input need to be connected to user actions manually in 2D console.

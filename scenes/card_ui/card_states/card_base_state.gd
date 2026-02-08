@@ -8,6 +8,9 @@ func enter() -> void:
 	if not card_ui.is_node_ready():
 		await card_ui.ready
 		
+	if card_ui.tween and card_ui.tween.is_running():
+		card_ui.tween.kill()
+		
 	# Without reparenting request, card won't snap back to hand when it returns base state
 	card_ui.reparent_requested.emit(card_ui)
 	card_ui.color.color = Color.WEB_GREEN
