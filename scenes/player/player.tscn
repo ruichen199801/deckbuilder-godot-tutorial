@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bsxwudt1fhfq"]
+
+[ext_resource type="Texture2D" uid="uid://cpydvk8mq66o5" path="res://art/tile_0087.png" id="1_dovo2"]
+[ext_resource type="Script" uid="uid://bwsboykumb5hk" path="res://scenes/player/player.gd" id="1_gmlin"]
+[ext_resource type="PackedScene" uid="uid://ctuhbtsjp7xny" path="res://scenes/ui/stats_ui.tscn" id="2_gmlin"]
+
+[node name="Player" type="Node2D" unique_id=2021739944 groups=["player"]]
+script = ExtResource("1_gmlin")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1402325176]
+texture = ExtResource("1_dovo2")
+
+[node name="StatsUI" parent="." unique_id=7436884 instance=ExtResource("2_gmlin")]
+offset_left = -47.0
+offset_top = 11.0
+offset_right = 43.0
+offset_bottom = 27.0
