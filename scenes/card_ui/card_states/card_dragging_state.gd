@@ -12,8 +12,7 @@ func enter() -> void:
 		# Reparent so that we can drag the card freely on the screen
 		card_ui.reparent(ui_layer)
 		
-	card_ui.color.color = Color.NAVY_BLUE
-	card_ui.state.text = "DRAGGING"
+	card_ui.panel.set("theme_override_styles/panel", card_ui.DRAG_STYLEBOX)
 	
 	# Prevent state transition too fast so it enters two states in no time
 	minimum_drag_time_elapsed = false

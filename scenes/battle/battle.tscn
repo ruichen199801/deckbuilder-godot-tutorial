@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://bmagl2gtt384o" path="res://characters/warrior/cards/warrior_block.tres" id="5_fh7rg"]
 [ext_resource type="PackedScene" uid="uid://bsxwudt1fhfq" path="res://scenes/player/player.tscn" id="8_agsc7"]
 [ext_resource type="Resource" uid="uid://cljni8q4lofag" path="res://characters/warrior/warrior.tres" id="9_oiw7q"]
+[ext_resource type="PackedScene" uid="uid://bgydrynp2takx" path="res://scenes/ui/mana_ui.tscn" id="11_fisqk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dn72j"]
 size = Vector2(256, 100)
@@ -34,6 +35,10 @@ debug_color = Color(0, 0.6, 0.69803923, 0.14901961)
 [node name="Enemy" parent="." unique_id=1085242407 instance=ExtResource("2_agsc7")]
 position = Vector2(211, 74)
 stats = ExtResource("3_oiw7q")
+
+[node name="Player" parent="." unique_id=2021739944 instance=ExtResource("8_agsc7")]
+position = Vector2(54, 75)
+stats = ExtResource("9_oiw7q")
 
 [node name="CardTargetSelector" parent="." unique_id=1809836135 instance=ExtResource("3_pll4o")]
 
@@ -66,6 +71,5 @@ card = ExtResource("4_h0kxc")
 layout_mode = 2
 card = ExtResource("5_fh7rg")
 
-[node name="Player" parent="." unique_id=2021739944 instance=ExtResource("8_agsc7")]
-position = Vector2(54, 75)
-stats = ExtResource("9_oiw7q")
+[node name="ManaUI" parent="BattleUI" unique_id=1775435178 instance=ExtResource("11_fisqk")]
+char_stats = ExtResource("9_oiw7q")

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bgydrynp2takx"]
+
+[ext_resource type="Theme" uid="uid://q8643ny12ot5" path="res://main_theme.tres" id="1_rpnp3"]
+[ext_resource type="Script" uid="uid://wiww4lyyb85e" path="res://scenes/ui/mana_ui.gd" id="2_jwxui"]
+
+[node name="ManaUI" type="Panel" unique_id=1775435178]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -21.0
+offset_right = 23.0
+offset_bottom = -3.0
+grow_vertical = 0
+theme = ExtResource("1_rpnp3")
+script = ExtResource("2_jwxui")
+
+[node name="ManaLabel" type="Label" parent="." unique_id=1607892562]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "3/3"
+horizontal_alignment = 1
+vertical_alignment = 1
