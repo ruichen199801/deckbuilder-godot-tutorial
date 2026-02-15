@@ -19,6 +19,7 @@ const HOVER_STYLEBOX := preload("res://scenes/card_ui/card_hover_stylebox.tres")
 # Use setter to wire up CardUI with actual icon and cost,
 # not dummy ones set in the Inspector
 @export var card: Card: set = _set_card
+@export var char_stats: CharacterStats : set = _set_char_stats
 
 # CardUI
 #  - Color
@@ -33,21 +34,40 @@ const HOVER_STYLEBOX := preload("res://scenes/card_ui/card_hover_stylebox.tres")
 @onready var drop_point_detector: Area2D = $DropPointDetector
 @onready var card_state_machine: CardStateMachine = $CardStateMachine
 @onready var targets: Array[Node] = []
+@onready var original_index := self.get_index()
 
 # Need access to parent for the aiming
+# Used in state machine like card_ui.parent
 var parent: Control
 # Used to animate changes over time, needed for the aiming animation
 var tween: Tween
+# Has mana to play the card or not
+var playable := true : set = _set_playable
+# Can interact with the card on UI or not
+# (can't drag other cards when you are already dragging a card)
+var disabled := false
 
 
 # Wirp up the state machine by calling init().
 func _ready() -> void:
+	Events.card_aim_started.connect(_on_card_drag_or_aiming_started)
+	Events.card_drag_started.connect(_on_card_drag_or_aiming_started)
+	Events.card_drag_ended.connect(_on_card_drag_or_aim_ended)
+	Events.card_aim_ended.connect(_on_card_drag_or_aim_ended)
 	card_state_machine.init(self)
 	
 
 # _ready and _input callbacks are inherited from Node, no need to connect.
 func _input(event: InputEvent) -> void:
 	card_state_machine.on_input(event)
+	
+	
+func play() -> void:
+	if not card:
+		return
+		
+	card.play(targets, char_stats)
+	queue_free()
 	
 	
 func animate_to_position(new_position: Vector2, duration: float) -> void:
@@ -77,6 +97,21 @@ func _set_card(value: Card) -> void:
 	icon.texture = card.icon
 
 
+func _set_playable(value: bool) -> void:
+	playable = value
+	if not playable:
+		cost.add_theme_color_override("font_color", Color.RED)
+		icon.modulate = Color(1, 1, 1, 0.5)
+	else:
+		cost.remove_theme_color_override("font_color")
+		icon.modulate = Color(1, 1, 1, 1)
+		
+
+func _set_char_stats(value: CharacterStats) -> void:
+	char_stats = value
+	char_stats.stats_changed.connect(_on_char_stats_changed)
+	
+	
 func _on_drop_point_detector_area_entered(area: Area2D) -> void:
 	if not targets.has(area):
 		targets.append(area)
@@ -84,3 +119,21 @@ func _on_drop_point_detector_area_entered(area: Area2D) -> void:
 
 func _on_drop_point_detector_area_exited(area: Area2D) -> void:
 	targets.erase(area)
+	
+	
+func _on_card_drag_or_aiming_started(used_card: CardUI) -> void:
+	# If we are dragging the card itself, no need to disable,
+	# only disable other cards.
+	if used_card == self:
+		return
+	
+	disabled = true
+
+
+func _on_card_drag_or_aim_ended(_card: CardUI) -> void:
+	disabled = false
+	self.playable = char_stats.can_play_card(card)
+
+
+func _on_char_stats_changed() -> void:
+	self.playable = char_stats.can_play_card(card)

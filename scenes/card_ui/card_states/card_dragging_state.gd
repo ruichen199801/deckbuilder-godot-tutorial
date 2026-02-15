@@ -13,11 +13,16 @@ func enter() -> void:
 		card_ui.reparent(ui_layer)
 		
 	card_ui.panel.set("theme_override_styles/panel", card_ui.DRAG_STYLEBOX)
+	Events.card_drag_started.emit(card_ui)
 	
 	# Prevent state transition too fast so it enters two states in no time
 	minimum_drag_time_elapsed = false
 	var threshold_timer := get_tree().create_timer(DRAG_MINIMUM_THRESHOLD, false)
 	threshold_timer.timeout.connect(func(): minimum_drag_time_elapsed = true)
+	
+	
+func exit() -> void:
+	Events.card_drag_ended.emit(card_ui)
 	
 
 func on_input(event: InputEvent) -> void:

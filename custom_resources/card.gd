@@ -18,3 +18,38 @@ enum Target {SELF, SINGLE_ENEMY, ALL_ENEMIES, EVERYONE}
 
 func is_single_targeted() -> bool:
 	return target == Target.SINGLE_ENEMY
+	
+	
+func _get_targets(targets: Array[Node]) -> Array[Node]:
+	if not targets:
+		return []
+		
+	# Resources exist in our filesystem even before game starts,
+	# so they don't have access to the scene tree by default.
+	# That's why we need get_tree() here.
+	var tree := targets[0].get_tree()
+	
+	match target:
+		Target.SELF:
+			return tree.get_nodes_in_group("player")
+		Target.ALL_ENEMIES:
+			return tree.get_nodes_in_group("enemies")
+		Target.EVERYONE:
+			return tree.get_nodes_in_group("player") + tree.get_nodes_in_group("enemies")
+		_:
+			return []
+
+
+func play(targets: Array[Node], char_stats: CharacterStats) -> void:
+	Events.card_played.emit(self)
+	char_stats.mana -= cost
+	
+	if is_single_targeted():
+		apply_effects(targets)
+	else:
+		apply_effects(_get_targets(targets))
+		
+
+# Virtual method, implementation in warrior_block.gd for example.
+func apply_effects(_targets: Array[Node]) -> void:
+	pass
