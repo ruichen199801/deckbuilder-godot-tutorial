@@ -17,7 +17,7 @@ extends Node2D
 	
 
 func set_character_stats(value: CharacterStats) -> void:
-	stats = value.create_instance()
+	stats = value
 	
 	# In Godot, the setter function for an exported variable gets called even when you
 	# run the game. That means we could accidentally connect twice when later on we set up
