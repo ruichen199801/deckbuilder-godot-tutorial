@@ -18,8 +18,10 @@ func _on_card_played(_card: Card) -> void:
 	
 	
 func _on_card_ui_reparent_requested(child: CardUI) -> void:
+	child.disabled = true
 	child.reparent(self)
 	# Make sure card stays in same relative position when it pops back to hand
 	var new_index := clampi(child.original_index - cards_played_this_turn, 0, get_child_count())
 	# call_deferred: make sure this happens at end of the frame
 	move_child.call_deferred(child, new_index)
+	child.set_deferred("disabled", false)

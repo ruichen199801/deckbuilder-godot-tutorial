@@ -22,6 +22,7 @@ func enter() -> void:
 	# jump to the mouse cursor if pivot_offset equals 0.
 	# Here in base state, we simply reset it to 0.
 	card_ui.pivot_offset = Vector2.ZERO
+	Events.tooltip_hide_requested.emit()
 
 
 func on_gui_input(event: InputEvent) -> void:
@@ -39,6 +40,8 @@ func on_mouse_entered() -> void:
 		return
 		
 	card_ui.panel.set("theme_override_styles/panel", card_ui.HOVER_STYLEBOX)
+	# What is emitted must match the handler signature
+	Events.card_tooltip_requested.emit(card_ui.card.icon, card_ui.card.tooltip_text)
 	
 	
 func on_mouse_exited() -> void:
@@ -46,3 +49,4 @@ func on_mouse_exited() -> void:
 		return
 		
 	card_ui.panel.set("theme_override_styles/panel", card_ui.BASE_STYLEBOX)
+	Events.tooltip_hide_requested.emit()
