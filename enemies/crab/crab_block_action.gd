@@ -1,0 +1,18 @@
+extends EnemyAction
+
+@export var block := 6
+
+
+func perform_action() -> void:
+	if not enemy or not target:
+		return
+	
+	var block_effect := BlockEffect.new()
+	block_effect.amount = block
+	block_effect.execute([enemy])
+	
+	# Add timer for block action to last for a bit, so user can visually follow
+	get_tree().create_timer(0.6, false).timeout.connect(
+		func():
+			Events.enemy_action_completed.emit(enemy)
+	)

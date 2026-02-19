@@ -10,7 +10,7 @@ func enter() -> void:
 		Events.tooltip_hide_requested.emit()
 		# Meaning Area2D is added to target list, card arrives at drop area
 		played = true
-		print("play card for target(s) ", card_ui.targets)
+		# print("play card for target(s) ", card_ui.targets)
 		card_ui.play()
 
 
