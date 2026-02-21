@@ -3,20 +3,43 @@
 [ext_resource type="Script" uid="uid://vec0rp37f0vb" path="res://scenes/enemy/enemy_action_picker.gd" id="1_bjf0w"]
 [ext_resource type="Script" uid="uid://bkj3jtmy0ntay" path="res://enemies/crab/crab_attack_action.gd" id="2_83qhu"]
 [ext_resource type="Script" uid="uid://b4wt7wb6adha1" path="res://enemies/crab/crab_block_action.gd" id="3_fqf88"]
+[ext_resource type="Texture2D" uid="uid://bq4im540nk025" path="res://art/tile_0106.png" id="3_yv4lo"]
+[ext_resource type="Script" uid="uid://bi83wmjth4awt" path="res://custom_resources/intent.gd" id="4_bm7hr"]
 [ext_resource type="Script" uid="uid://wqqolsxxsb6l" path="res://enemies/crab/crab_mega_block_action.gd" id="4_fqf88"]
+[ext_resource type="Texture2D" uid="uid://bi6pfjs32f820" path="res://art/tile_0101.png" id="6_moca1"]
+[ext_resource type="Texture2D" uid="uid://oe7v35ii8vrs" path="res://art/tile_0102.png" id="8_trgox"]
+
+[sub_resource type="Resource" id="Resource_yihd4"]
+script = ExtResource("4_bm7hr")
+number = "7"
+icon = ExtResource("3_yv4lo")
+metadata/_custom_type_script = "uid://bi83wmjth4awt"
+
+[sub_resource type="Resource" id="Resource_34me6"]
+script = ExtResource("4_bm7hr")
+icon = ExtResource("6_moca1")
+metadata/_custom_type_script = "uid://bi83wmjth4awt"
+
+[sub_resource type="Resource" id="Resource_0pw8a"]
+script = ExtResource("4_bm7hr")
+icon = ExtResource("8_trgox")
+metadata/_custom_type_script = "uid://bi83wmjth4awt"
 
 [node name="CrabEnemyAI" type="Node" unique_id=1263687032]
 script = ExtResource("1_bjf0w")
 
 [node name="AttackAction" type="Node" parent="." unique_id=559249547]
 script = ExtResource("2_83qhu")
+intent = SubResource("Resource_yihd4")
 type = 1
 chance_weight = 1.0
 
 [node name="BlockAction" type="Node" parent="." unique_id=1314606531]
 script = ExtResource("3_fqf88")
+intent = SubResource("Resource_34me6")
 type = 1
 chance_weight = 1.0
 
 [node name="MegaBlockAction" type="Node" parent="." unique_id=1818307314]
 script = ExtResource("4_fqf88")
+intent = SubResource("Resource_0pw8a")

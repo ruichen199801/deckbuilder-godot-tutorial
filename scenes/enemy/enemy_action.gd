@@ -12,6 +12,7 @@ extends Node
 #   - Weighted randomness reference: http://kehomsforge.com/tutorials/single/weighted-random-selection-godot/
 enum Type {CONDITIONAL, CHANCE_BASED}
 
+@export var intent: Intent
 @export var type: Type
 # Only set in Inspector for Chance-Based enemy actions
 # Can be arbitrary scale, e.g. for 2 actions with 50/50 chance,
