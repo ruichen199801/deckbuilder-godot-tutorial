@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bq4im540nk025" path="res://art/tile_0106.png" id="3_yv4lo"]
 [ext_resource type="Script" uid="uid://bi83wmjth4awt" path="res://custom_resources/intent.gd" id="4_bm7hr"]
 [ext_resource type="Script" uid="uid://wqqolsxxsb6l" path="res://enemies/crab/crab_mega_block_action.gd" id="4_fqf88"]
+[ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="5_moca1"]
 [ext_resource type="Texture2D" uid="uid://bi6pfjs32f820" path="res://art/tile_0101.png" id="6_moca1"]
 [ext_resource type="Texture2D" uid="uid://oe7v35ii8vrs" path="res://art/tile_0102.png" id="8_trgox"]
+[ext_resource type="AudioStream" uid="uid://k8m4o3hlwm7l" path="res://art/enemy_block.ogg" id="8_yihd4"]
 
 [sub_resource type="Resource" id="Resource_yihd4"]
 script = ExtResource("4_bm7hr")
@@ -31,15 +33,18 @@ script = ExtResource("1_bjf0w")
 [node name="AttackAction" type="Node" parent="." unique_id=559249547]
 script = ExtResource("2_83qhu")
 intent = SubResource("Resource_yihd4")
+sound = ExtResource("5_moca1")
 type = 1
 chance_weight = 1.0
 
 [node name="BlockAction" type="Node" parent="." unique_id=1314606531]
 script = ExtResource("3_fqf88")
 intent = SubResource("Resource_34me6")
+sound = ExtResource("8_yihd4")
 type = 1
 chance_weight = 1.0
 
 [node name="MegaBlockAction" type="Node" parent="." unique_id=1818307314]
 script = ExtResource("4_fqf88")
 intent = SubResource("Resource_0pw8a")
+sound = ExtResource("8_yihd4")

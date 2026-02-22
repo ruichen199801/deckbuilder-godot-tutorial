@@ -4,17 +4,20 @@
 [ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://art/background.png" id="1_tiqy5"]
 [ext_resource type="PackedScene" uid="uid://dtcyajca05718" path="res://scenes/enemy/enemy.tscn" id="2_agsc7"]
 [ext_resource type="Script" uid="uid://drt1nqsab7x5r" path="res://scenes/ui/hand.gd" id="2_xd4uy"]
+[ext_resource type="AudioStream" uid="uid://dpdenqqbovwfq" path="res://art/8_bit_iced_village_lofi.mp3" id="3_n6gaa"]
 [ext_resource type="PackedScene" uid="uid://dm0rm1hhty54v" path="res://scenes/card_target_selector/card_target_selector.tscn" id="3_pll4o"]
 [ext_resource type="Script" uid="uid://clx4pplyaxwdd" path="res://scenes/enemy/enemy_handler.gd" id="4_kd6yx"]
 [ext_resource type="Resource" uid="uid://dfkgqtx2ga3dg" path="res://enemies/crab/crab_enemy.tres" id="6_kd6yx"]
 [ext_resource type="Script" uid="uid://w72wolbk3xwa" path="res://scenes/ui/battle_ui.gd" id="7_icoan"]
 [ext_resource type="PackedScene" uid="uid://bsxwudt1fhfq" path="res://scenes/player/player.tscn" id="8_agsc7"]
+[ext_resource type="Resource" uid="uid://d4mfjqejphw85" path="res://enemies/bat/bat_enemy.tres" id="8_mvulk"]
 [ext_resource type="Script" uid="uid://dlhl367aiki7r" path="res://scenes/player/player_handler.gd" id="8_mxe8n"]
 [ext_resource type="Resource" uid="uid://cljni8q4lofag" path="res://characters/warrior/warrior.tres" id="9_oiw7q"]
 [ext_resource type="PackedScene" uid="uid://bgydrynp2takx" path="res://scenes/ui/mana_ui.tscn" id="11_fisqk"]
 [ext_resource type="PackedScene" uid="uid://cwdvb4rp17c83" path="res://scenes/ui/tooltip.tscn" id="12_mxe8n"]
 [ext_resource type="Theme" uid="uid://q8643ny12ot5" path="res://main_theme.tres" id="13_icoan"]
 [ext_resource type="Script" uid="uid://djgk7dxaoc7yn" path="res://scenes/ui/red_flash.gd" id="15_t1kk3"]
+[ext_resource type="PackedScene" uid="uid://0wovdy6ss8mc" path="res://scenes/ui/battle_over_panel.tscn" id="17_6ofp8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dn72j"]
 size = Vector2(256, 100)
@@ -22,6 +25,7 @@ size = Vector2(256, 100)
 [node name="Battle" type="Node2D" unique_id=820723155]
 script = ExtResource("1_kd6yx")
 char_stats = ExtResource("9_oiw7q")
+music = ExtResource("3_n6gaa")
 metadata/_edit_lock_ = true
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1086587720]
@@ -41,9 +45,17 @@ debug_color = Color(0, 0.6, 0.69803923, 0.14901961)
 [node name="EnemyHandler" type="Node2D" parent="." unique_id=1768618944]
 script = ExtResource("4_kd6yx")
 
-[node name="Enemy" parent="EnemyHandler" unique_id=1085242407 instance=ExtResource("2_agsc7")]
-position = Vector2(211, 74)
+[node name="BatEnemy" parent="EnemyHandler" unique_id=1532114633 instance=ExtResource("2_agsc7")]
+position = Vector2(164, 64)
+stats = ExtResource("8_mvulk")
+
+[node name="CrabEnemy" parent="EnemyHandler" unique_id=1085242407 instance=ExtResource("2_agsc7")]
+position = Vector2(199, 75)
 stats = ExtResource("6_kd6yx")
+
+[node name="BatEnemy2" parent="EnemyHandler" unique_id=1000518760 instance=ExtResource("2_agsc7")]
+position = Vector2(233, 65)
+stats = ExtResource("8_mvulk")
 
 [node name="Player" parent="." unique_id=2021739944 instance=ExtResource("8_agsc7")]
 position = Vector2(54, 75)
@@ -77,6 +89,7 @@ script = ExtResource("2_xd4uy")
 char_stats = ExtResource("9_oiw7q")
 
 [node name="Tooltip" parent="BattleUI" unique_id=1236126662 instance=ExtResource("12_mxe8n")]
+visible = false
 offset_top = 5.0
 offset_bottom = 41.0
 
@@ -112,3 +125,9 @@ color = Color(1, 0.44313726, 0.44313726, 0)
 [node name="Timer" type="Timer" parent="RedFlash" unique_id=1562816035]
 wait_time = 0.1
 one_shot = true
+
+[node name="BattleOverLayer" type="CanvasLayer" parent="." unique_id=1279549697]
+layer = 2
+
+[node name="BattleOverPanel" parent="BattleOverLayer" unique_id=504098758 instance=ExtResource("17_6ofp8")]
+visible = false

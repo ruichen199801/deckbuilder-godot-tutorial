@@ -1,17 +1,6 @@
 extends EnemyAction
 
-# Conditional: Only trigger if hp goes below threshold, can only do once.
-@export var block := 15
-@export var hp_threshold := 6
-
-var already_used := false
-
-
-func is_performable() -> bool:
-	if not enemy or already_used:
-		return false
-	
-	return enemy.stats.health <= hp_threshold
+@export var block := 4
 
 
 func perform_action() -> void:
@@ -22,7 +11,6 @@ func perform_action() -> void:
 	block_effect.amount = block
 	block_effect.sound = sound
 	block_effect.execute([enemy])
-	already_used = true
 	
 	get_tree().create_timer(0.6, false).timeout.connect(
 		func():

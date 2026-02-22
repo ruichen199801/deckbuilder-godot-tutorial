@@ -9,6 +9,7 @@ func perform_action() -> void:
 	
 	var block_effect := BlockEffect.new()
 	block_effect.amount = block
+	block_effect.sound = sound
 	block_effect.execute([enemy])
 	
 	# Add timer for block action to last for a bit, so user can visually follow

@@ -10,3 +10,5 @@ func execute(targets: Array[Node]) -> void:
 			continue
 		if target is Enemy or target is Player:
 			target.take_damage(amount)
+			# Apply SFX in effect layer not card layer, since a card can have multiple SFX-enabled effects
+			SFXPlayer.play(sound)

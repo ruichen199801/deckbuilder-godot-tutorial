@@ -13,6 +13,7 @@ extends Node
 enum Type {CONDITIONAL, CHANCE_BASED}
 
 @export var intent: Intent
+@export var sound: AudioStream
 @export var type: Type
 # Only set in Inspector for Chance-Based enemy actions
 # Can be arbitrary scale, e.g. for 2 actions with 50/50 chance,
